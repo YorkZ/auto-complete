@@ -632,10 +632,10 @@ If there is no common part, this will be nil.")
 (defun ac-comphist-save ()
   (interactive)
   (require 'pp)
-  (ignore-errors
-    (with-temp-buffer
-      (pp (ac-comphist-serialize ac-comphist) (current-buffer))
-      (write-region (point-min) (point-max) ac-comphist-file))))
+  (with-temp-buffer
+    (let (print-length)
+      (pp (ac-comphist-serialize ac-comphist) (current-buffer)))
+    (write-region (point-min) (point-max) ac-comphist-file)))
 
 
 
